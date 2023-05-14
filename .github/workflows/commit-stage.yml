@@ -17,5 +17,5 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: maven
-      -name: Build, unit test and integration test
-       run: mvn --batch-mode --update-snapshots package --file pom.xml
+      - name: Build, unit test and integration test
+        run: mvn --batch-mode --update-snapshots package --file pom.xml
