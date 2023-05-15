@@ -23,6 +23,9 @@ public record Book (
         @NotBlank(message = "Author name must be specified")
         String author,
 
+        @NotBlank
+        String publisherName,
+
         @NotNull(message="Price must be specified")
         @Positive(message = "Book price must be greater than zero")
         Double price,
@@ -36,7 +39,7 @@ public record Book (
         @Version
         int version
 ){
-        public static Book of(String isbn, String title, String author,Double price){
-                return new Book(null,isbn,title,author,price,null,null,0);
+        public static Book of(String isbn, String title, String author,String publisherName,Double price){
+                return new Book(null,isbn,title,author,publisherName,price,null,null,0);
         }
 }

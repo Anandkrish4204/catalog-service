@@ -20,14 +20,14 @@ class BookValidationTests {
 
     @Test
     void validationSuccess(){
-        var book = Book.of("1234567890","Wings of fire","Abdul",100.00);
+        var book = Book.of("1234567890","Wings of fire","Abdul","",100.00);
         Set<ConstraintViolation<Book>> validate = validator.validate(book);
         Assertions.assertThat(validate).isEmpty();
     }
 
     @Test
     void validateViolations(){
-        var book = Book.of("12345678903","Wings of fire","Abdul",100.00);
+        var book = Book.of("12345678903","Wings of fire","Abdul","",100.00);
         Set<ConstraintViolation<Book>> validate = validator.validate(book);
         Assertions.assertThat(validate).hasSize(1);
         Assertions.assertThat(validate.iterator().next().getMessage()).isEqualTo("The ISBN format must be valid");

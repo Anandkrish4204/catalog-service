@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS book;
-
-CREATE TABLE book-demo (
+CREATE TABLE book (
     id BIGSERIAL PRIMARY KEY NOT NULL,
     author varchar(255) NOT NULL,
     isbn varchar(255) UNIQUE NOT NULL,
@@ -10,3 +8,6 @@ CREATE TABLE book-demo (
     last_modified_date timestamp NOT NULL,
     version integer NOT NULL
 );
+
+ALTER TABLE book
+ADD COLUMN publisher_name varchar(255);
