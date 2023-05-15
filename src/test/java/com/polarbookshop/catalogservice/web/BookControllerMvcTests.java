@@ -1,5 +1,6 @@
 package com.polarbookshop.catalogservice.web;
 
+import com.polarbookshop.catalogservice.config.PolarProperties;
 import com.polarbookshop.catalogservice.domain.BookNotFoundException;
 import com.polarbookshop.catalogservice.domain.BookService;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ class BookControllerMvcTests {
 
     @MockBean
     private BookService bookService;
+    @MockBean
+    private PolarProperties polarProperties;
 
     @Test
     void testMvc() throws Exception {

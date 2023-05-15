@@ -1,5 +1,6 @@
 package com.polarbookshop.catalogservice.web;
 
+import com.polarbookshop.catalogservice.config.PolarProperties;
 import com.polarbookshop.catalogservice.domain.Book;
 import com.polarbookshop.catalogservice.domain.BookService;
 import org.springframework.http.HttpStatus;
@@ -11,14 +12,17 @@ import javax.validation.Valid;
 public class HomeController {
 
     private final BookService bookService;
+    private final PolarProperties polarProperties;
 
-    public HomeController(BookService bookService){
+    public HomeController(BookService bookService, PolarProperties polarProperties
+    ){
         this.bookService = bookService;
+        this.polarProperties = polarProperties;
     }
 
     @GetMapping("/")
     public String getGreetings(){
-        return "Welcome to the book catalog";
+        return polarProperties.getGreetingMessage();
     }
 
     @GetMapping("/books")
