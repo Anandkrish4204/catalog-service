@@ -1,22 +1,24 @@
-FROM openjdk:17-slim as build
+FROM openjdk:17-slim as builder
+
+WORKDIR workspace
 
 LABEL maintainer="Anand Krishnamoorthy <anandkrish4204@gmail.com>"
 
 ARG JAR_FILE
 
-COPY ${JAR_FILE} app.jar
+COPY ${JAR_FILE} catalog-service.jar
 
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
+RUN java -Djarmode=layertools -jar catalog-service.jar extract
 
 
 FROM openjdk:17-slim
+RUN useradd aang
+USER aang
+WORKDIR workspace
 
-VOLUME /tmp
+COPY --from=builder workspace/dependencies/ ./
+COPY --from=builder workspace/spring-boot-loader/ ./
+COPY --from=builder workspace/snapshot-dependencies/ ./
+COPY --from=builder workspace/application/ ./
 
-ARG DEPENDENCY=/target/dependency
-
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.polarbookshop.catalogservice.CatalogServiceApplication"]
+ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
