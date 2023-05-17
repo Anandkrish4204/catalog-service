@@ -60,3 +60,5 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean package docker:build
+      - name : Publish container image
+        run: docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{env.VERSION}}
