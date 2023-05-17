@@ -59,4 +59,4 @@ jobs:
       - name: Build container image
         run: |
           chmod +x mvnw
-          ./mavnw clean package docker:build
+          ./mvnw clean package docker:build
