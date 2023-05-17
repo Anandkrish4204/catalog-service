@@ -1,6 +1,11 @@
 name: Commit Stage
 on: push
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: aangdocker/catalog-service
+  VERSION: latest
+
 jobs:
   build:
     name: Build and Test
@@ -32,3 +37,26 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif }}
       - name: Build, unit test and integration test
         run: mvn --batch-mode --update-snapshots package --file pom.xml
+
+  package:
+    name: Package and Publish
+    if: ${{github.ref == 'refs/heads/master'}}
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Build container image
+        run: |
+          chmod +x mvnw
+          ./mavnw clean package docker:build
