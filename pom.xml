@@ -87,7 +87,7 @@
 					<verbose>true</verbose>
 					<images>
 						<image>
-							<name>ghcr.io/Anandkrish4204/${project.artifactId}</name>
+							<name>ghcr.io/anandkrish4204/${project.artifactId}</name>
 							<build>
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>

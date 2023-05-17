@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: Anandkrish4204/catalog-service
+  IMAGE_NAME: anandkrish4204/catalog-service
   VERSION: latest
 
 jobs:
