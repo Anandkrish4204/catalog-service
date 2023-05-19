@@ -37,6 +37,13 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif }}
       - name: Build, unit test and integration test
         run: mvn --batch-mode --update-snapshots package --file pom.xml
+      - name: Validate Kubernetes manifests
+        uses: stefanprodan/kube-tools@v1
+        with:
+          kubectl: 1.27.1
+          kubeval: 0.16.1
+          command: |
+            kubeval --strict -d k8s
 
   package:
     name: Package and Publish

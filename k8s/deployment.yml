@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  labels:
+    app: catalog-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: ghcr.io/anandkrish4204/catalog-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9001
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh","-c","sleep 5"]
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://polar-postgres/polardb_catalog
+            - name: SPRING_PROFILES_ACTIVE
+              value: testData

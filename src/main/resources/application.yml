@@ -1,5 +1,6 @@
 server:
   port: 9001
+  shutdown: graceful
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
@@ -14,6 +15,8 @@ polar:
 spring:
   application:
     name: catalog-service
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
   config:
     import: "optional:configserver:"
   cloud:
