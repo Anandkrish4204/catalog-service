@@ -20,7 +20,7 @@ spring:
   config:
     import: "optional:configserver:"
   cloud:
-    confifg:
+    config:
       uri: http://localhost:8888
   datasource:
     username: user
@@ -32,8 +32,8 @@ spring:
 #  sql:
 #    init:
 #      mode: always
-  profiles:
-    active: testData
+#  profiles:
+#    active: testData
 
 
 management:
